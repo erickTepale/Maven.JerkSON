@@ -71,11 +71,11 @@ public class parseKeyValue {
         a.parseItemList(valueToParse);
     }
 
-    @Test
-    public void testTrim(){
-        ItemParser a = new ItemParser();
-
-        Assert.assertEquals("Milk", a.trim("^Milk;"));
-        Assert.assertEquals("Milk", a.trim("%Milk##"));
-    }
+//    @Test
+//    public void testTrim(){
+//        ItemParser a = new ItemParser();
+//
+//        Assert.assertEquals("Milk", a.trim("^Milk;"));
+//        Assert.assertEquals("Milk", a.trim("%Milk##"));
+//    }
 }

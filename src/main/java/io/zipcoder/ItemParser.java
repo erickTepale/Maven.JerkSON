@@ -21,7 +21,6 @@ public class ItemParser {
             if(temp != null) items.add(temp);
         }
 
-
         return items;
     }
 
@@ -31,14 +30,14 @@ public class ItemParser {
         String type = "";
         String expiration = "";
 
-        Pattern pattern = Pattern.compile("[:@^*%]([^;]*)[;|##]"); // matches everything between :@^*% and ;
+        Pattern pattern = Pattern.compile("(?<=[:@^*%])(.*?)(?=[;|#])"); //matches everything between :@^*% and ; OR #, not including them
         Matcher matcher = pattern.matcher(singleItem);
         try {
             for (int i = 0; matcher.find(); i++) {
-                if (i == 0){ name = trim(matcher.group()).toLowerCase(); totalMatches++;}
-                else if (i == 1) {price = Double.parseDouble(trim(matcher.group())); totalMatches++;}
-                else if (i == 2){ type = trim(matcher.group()).toLowerCase(); totalMatches++;}
-                else if (i == 3) {expiration = trim(matcher.group()); totalMatches++;}
+                if (i == 0){ name = matcher.group().toLowerCase(); totalMatches++;}
+                else if (i == 1) {price = Double.parseDouble(matcher.group()); totalMatches++;}
+                else if (i == 2){ type = matcher.group().toLowerCase(); totalMatches++;}
+                else if (i == 3) {expiration = matcher.group(); totalMatches++;}
                 else{ System.out.println("error parsing?"); }
 
             }
@@ -53,13 +52,5 @@ public class ItemParser {
             throw new ItemParseException();
         }
 
-       //return null;
-    }
-
-    public String trim(String word){
-        if(word.charAt(word.length() - 2) == '#'){
-            return word.substring(1, word.length()-2);
-        }
-        return word.substring(1, word.length() - 1);
     }
 }
