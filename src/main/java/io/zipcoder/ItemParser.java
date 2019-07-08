@@ -9,8 +9,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 public class ItemParser {
-    public static Integer wackEntry = 0;
-    public static Integer totalMatches = 0;
+     private Integer wackEntry = 0;
+     private Integer totalMatches = 0;
 
     public List<Item> parseItemList(String valueToParse) throws ItemParseException {
         List<Item> items = new ArrayList<>();
@@ -31,7 +31,6 @@ public class ItemParser {
         String type = "";
         String expiration = "";
 
-        //Pattern pattern = Pattern.compile("[:@^*%]");
         Pattern pattern = Pattern.compile("[:@^*%]([^;]*)[;|##]"); // matches everything between :@^*% and ;
         Matcher matcher = pattern.matcher(singleItem);
         try {
@@ -41,8 +40,9 @@ public class ItemParser {
                 else if (i == 2){ type = trim(matcher.group()).toLowerCase(); totalMatches++;}
                 else if (i == 3) {expiration = trim(matcher.group()); totalMatches++;}
                 else{ System.out.println("error parsing?"); }
+
             }
-            if (totalMatches.equals(0))
+            if (totalMatches < 4)
                 throw new ItemParseException();
             if (name.equals("") || price.equals(0.0) || type.equals("") || expiration.equals(""))
                 return null;
