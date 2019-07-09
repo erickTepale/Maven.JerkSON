@@ -30,7 +30,6 @@ public class parseKeyValue {
                 .toString();
         Item item1 = new Item("milk", 3.23, "food", "1/25/2016");
 
-
         // when
         Item actualList = itemParser.parseSingleItem(valueToParse);
 
@@ -78,4 +77,102 @@ public class parseKeyValue {
 //        Assert.assertEquals("Milk", a.trim("^Milk;"));
 //        Assert.assertEquals("Milk", a.trim("%Milk##"));
 //    }
+
+
+    @Test
+    public void presentTest1(){
+        //Pattern pattern = Pattern.compile("(?<=[:@^*%])(.*?)(?=[;#])"); //matches everything between :@^*% and ; OR #, not including them
+        Pattern pattern = Pattern.compile(":([^;]*);");
+        Matcher matcher = pattern.matcher("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##");
+        try {
+            for (int i = 0; matcher.find(); i++) {
+
+                System.out.println(new StringBuilder()
+                        .append("\n-------------------")
+                        .append("\nValue = " + matcher.group())
+                        .append("\nMatch Number = " + i)
+                        .append("\nStarting index = " + matcher.start())
+                        .append("\nEnding index = " + matcher.end())
+                        .toString());
+
+            }
+
+        }catch (Exception e){
+            System.out.println("yerr");
+        }
+    }
+
+    @Test
+    public void presentTest2(){
+        //Pattern pattern = Pattern.compile("(?<=[:@^*%])(.*?)(?=[;#])"); //matches everything between :@^*% and ; OR #, not including them
+        Pattern pattern = Pattern.compile("[:@^*%]([^;]*)[;#]");
+        Matcher matcher = pattern.matcher("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##");
+        try {
+            for (int i = 0; matcher.find(); i++) {
+
+                System.out.println(new StringBuilder()
+                        .append("\n-------------------")
+                        .append("\nValue = " + matcher.group())
+                        .append("\nMatch Number = " + i)
+                        .append("\nStarting index = " + matcher.start())
+                        .append("\nEnding index = " + matcher.end())
+                        .toString());
+
+            }
+
+        }catch (Exception e){
+            System.out.println("yerr");
+        }
+    }
+
+    @Test
+    public void presentTest3(){
+        Pattern pattern = Pattern.compile("(?<=[:@^*%])(.*?)(?=[;#])"); //matches everything between :@^*% and ; OR #, not including them
+        Matcher matcher = pattern.matcher("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##");
+        try {
+            for (int i = 0; matcher.find(); i++) {
+
+                System.out.println(new StringBuilder()
+                        .append("\n-------------------")
+                        .append("\nValue = " + matcher.group())
+                        .append("\nMatch Number = " + i)
+                        .append("\nStarting index = " + matcher.start())
+                        .append("\nEnding index = " + matcher.end())
+                        .toString());
+
+            }
+
+        }catch (Exception e){
+            System.out.println("yerr");
+        }
+    }
+
+    @Test
+    public void presentTest1Group(){
+        String valueToParse = new StringBuilder()
+                .append("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##")
+                .append("NAMe:BrEAD;price:1.23;type:Food;expiration:2/25/2016##")
+                .append("NAMe:eggs;price:1.24;type:Food;expiration:2/25/2016##")
+                .append("NAMe:BacoN;price:1.25;type:Food;expiration:2/25/2016##")
+                .toString();
+
+        Pattern pattern = Pattern.compile("([^#]*)##");
+        Matcher matcher = pattern.matcher(valueToParse);
+        try {
+            for (int i = 0; matcher.find(); i++) {
+
+                System.out.println(new StringBuilder()
+                        .append("\n-------------------")
+                        .append("\nValue = " + matcher.group())
+                        .append("\nMatch Number = " + i)
+                        .append("\nStarting index = " + matcher.start())
+                        .append("\nEnding index = " + matcher.end())
+                        .toString());
+
+            }
+
+        }catch (Exception e){
+            System.out.println("yerr");
+        }
+    }
 }

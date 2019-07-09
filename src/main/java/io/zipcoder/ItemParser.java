@@ -14,8 +14,9 @@ public class ItemParser {
 
     public List<Item> parseItemList(String valueToParse) throws ItemParseException {
         List<Item> items = new ArrayList<>();
-        Pattern pattern = Pattern.compile("([^#]*)##"); // idk why but it works!
+        Pattern pattern = Pattern.compile("([^#]*)##");
         Matcher matcher = pattern.matcher(valueToParse);
+
         for(int i = 0; matcher.find(); i++){
             Item temp = parseSingleItem(matcher.group());
             if(temp != null) items.add(temp);
@@ -30,7 +31,7 @@ public class ItemParser {
         String type = "";
         String expiration = "";
 
-        Pattern pattern = Pattern.compile("(?<=[:@^*%])(.*?)(?=[;|#])"); //matches everything between :@^*% and ; OR #, not including them
+        Pattern pattern = Pattern.compile("(?<=[:@^*%])(.*?)(?=[;#])"); //matches everything between :@^*% and ; OR #, not including them
         Matcher matcher = pattern.matcher(singleItem);
         try {
             for (int i = 0; matcher.find(); i++) {
@@ -41,16 +42,28 @@ public class ItemParser {
                 else{ System.out.println("error parsing?"); }
 
             }
-            if (totalMatches < 4)
+
+            if (totalMatches < 4){
+                wackEntry++;
                 throw new ItemParseException();
-            if (name.equals("") || price.equals(0.0) || type.equals("") || expiration.equals(""))
+
+            }
+
+            if (name.equals("") || price.equals(0.0) || type.equals("") || expiration.equals("")){
+                wackEntry++;
                 return null;
+            }
 
             return new Item(name, price, type, expiration);
+
         }catch (Exception e){
             wackEntry++;
             throw new ItemParseException();
         }
 
+    }
+
+    public Integer getWackEntry(){
+        return wackEntry;
     }
 }

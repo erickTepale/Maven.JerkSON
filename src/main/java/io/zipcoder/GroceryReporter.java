@@ -21,11 +21,14 @@ public class GroceryReporter {
 
     @Override
     public String toString() {
+        ItemParser a = new ItemParser();
         try {
-            list = new ItemParser().parseItemList(originalFileText);
+
+            list = a.parseItemList(originalFileText);
         } catch (ItemParseException e) {
             e.printStackTrace();
         }
+        System.out.println("wack entry" + a.getWackEntry());
 
         //create map<String, Integer> map that counts item names and one that counts item prices :( out of time.
         Map<String, Integer> itemNameMap = new HashMap<>();
