@@ -24,10 +24,13 @@ public class parseKeyValue {
     @Test
     public void test1() throws ItemParseException {
         // given
+
+
         ItemParser itemParser = new ItemParser();
         String valueToParse = new StringBuilder()
                 .append("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##")
                 .toString();
+
         Item item1 = new Item("milk", 3.23, "food", "1/25/2016");
 
         // when
@@ -81,7 +84,6 @@ public class parseKeyValue {
 
     @Test
     public void presentTest1(){
-        //Pattern pattern = Pattern.compile("(?<=[:@^*%])(.*?)(?=[;#])"); //matches everything between :@^*% and ; OR #, not including them
         Pattern pattern = Pattern.compile(":([^;]*);");
         Matcher matcher = pattern.matcher("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##");
         try {
@@ -104,7 +106,6 @@ public class parseKeyValue {
 
     @Test
     public void presentTest2(){
-        //Pattern pattern = Pattern.compile("(?<=[:@^*%])(.*?)(?=[;#])"); //matches everything between :@^*% and ; OR #, not including them
         Pattern pattern = Pattern.compile("[:@^*%]([^;]*)[;#]");
         Matcher matcher = pattern.matcher("naMe:Milk;price:3.23;type:Food;expiration:1/25/2016##");
         try {
